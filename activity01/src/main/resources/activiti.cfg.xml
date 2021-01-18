@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/mvc/spring-tx.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/activity"/>
+        <property name="username" value="root"/>
+        <property name="password" value="wanghongkai"/>
+        <property name="maxActive" value="3"/>
+        <property name="maxIdle" value="1"/>
+    </bean>
+
+    <!--在默认方式下 bean的id为processEngineConfiguration-->
+    <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <!--配置数据库相关的信息-->
+        <!--数据库驱动-->
+        <!--<property name="jdbcDriver" value="com.mysql.jdbc.Driver"/>
+        &lt;!&ndash;数据库链接&ndash;&gt;
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/activity"/>
+        &lt;!&ndash;数据库用户名&ndash;&gt;
+        <property name="jdbcUsername" value="root"/>
+        &lt;!&ndash;数据库密码&ndash;&gt;
+        <property name="jdbcPassword" value="wanghongkai"/>-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--activity数据库表在生成时的策略 true - 如果数据库中已经存在对应的表，那么直接使用；如果不存在 那么会创建-->
+        <property name="databaseSchemaUpdate" value="true"/>
+
+    </bean>
+
+
+</beans>
