@@ -1,8 +1,7 @@
 package com.itheima.test;
 
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngineConfiguration;
-import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.*;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
 
 public class TestCreate {
@@ -20,9 +19,13 @@ public class TestCreate {
 
         ProcessEngineConfiguration processEngineConfigurationFromResource =
                 ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml","processEngineConfiguration");
+        ProcessEngine processEngine = processEngineConfigurationFromResource.buildProcessEngine();
+        TaskService taskService = processEngine.getTaskService();
 
         //System.out.println(processEngine);
 
     }
+
+
 
 }
