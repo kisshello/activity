@@ -1,12 +1,13 @@
 package com.itheima.test;
 
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngines;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
+import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.junit.Test;
+
+import java.util.List;
 
 public class testDeployment {
     /**
@@ -46,6 +47,29 @@ public class testDeployment {
         System.out.println("流程实例id："+instance.getId());
         System.out.println("当前活动的id："+instance.getActivityId());
 
+    }
+
+    /**
+     * 个人任务查询功能
+     */
+    @Test
+    public void testFindPersonalTaskList(){
+//        1、获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2、获取taskService
+        TaskService taskService = processEngine.getTaskService();
+//        3、根据流程key和任务的负责人查询任务
+        List<Task> taskList = taskService.createTaskQuery()
+                .processDefinitionKey("myEvection")
+                .taskAssignee("zhangsan")
+                .list();
+//        4、输出
+        for (Task task : taskList) {
+            System.out.println("任务流程id："+task.getProcessInstanceId());
+            System.out.println("任务id："+task.getId());
+            System.out.println("任务负责人："+task.getAssignee());
+            System.out.println("任务名称："+task.getName());
+        }
     }
 
 }
