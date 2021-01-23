@@ -72,4 +72,32 @@ public class testDeployment {
         }
     }
 
+    /**
+     * 完成个人任务
+     */
+    @Test
+    public void completTask(){
+//        1、获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2、获取操作任务的taskService
+        TaskService taskService = processEngine.getTaskService();
+//        3、根据任务id完成任务
+        //taskService.complete("2505");
+//        获取jerry  -  myEvection 对应的任务
+        /*Task task = taskService.createTaskQuery()
+                .processDefinitionKey("myEvection")
+                .taskAssignee("Jerry")
+                .singleResult();*/
+        /*Task task = taskService.createTaskQuery()
+                .processDefinitionKey("myEvection")
+                .taskAssignee("jack")
+                .singleResult();*/
+        Task task = taskService.createTaskQuery()
+                .processDefinitionKey("myEvection")
+                .taskAssignee("rose")
+                .singleResult();
+//        jerry完成任务
+        taskService.complete(task.getId());
+    }
+
 }
